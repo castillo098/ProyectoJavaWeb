@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BooksViewDlg" widgetVar="BooksViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBooksTitle}">
+            <h:form id="BooksViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{booksController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBooksLabel_bookId}"/>
+                        <h:outputText value="#{booksController.selected.bookId}" title="#{bundle.ViewBooksTitle_bookId}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_tittle}"/>
+                        <h:outputText value="#{booksController.selected.tittle}" title="#{bundle.ViewBooksTitle_tittle}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_description}"/>
+                        <h:outputText value="#{booksController.selected.description}" title="#{bundle.ViewBooksTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_author}"/>
+                        <h:outputText value="#{booksController.selected.author}" title="#{bundle.ViewBooksTitle_author}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_publisherId}"/>
+                        <h:outputText value="#{booksController.selected.publisherId}" title="#{bundle.ViewBooksTitle_publisherId}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_price}"/>
+                        <h:outputText value="#{booksController.selected.price}" title="#{bundle.ViewBooksTitle_price}"/>
+                        <h:outputText value="#{bundle.ViewBooksLabel_copies}"/>
+                        <h:outputText value="#{booksController.selected.copies}" title="#{bundle.ViewBooksTitle_copies}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BooksViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

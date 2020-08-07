@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActionsEditDlg" widgetVar="ActionsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditActionsTitle}">
+            <h:form id="ActionsEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actionsController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditActionsLabel_actionId}" for="actionId" />
+                        <p:inputText id="actionId" value="#{actionsController.selected.actionId}" title="#{bundle.EditActionsTitle_actionId}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_actionId}"/>
+                        <p:outputLabel value="#{bundle.EditActionsLabel_bookId}" for="bookId" />
+                        <p:inputText id="bookId" value="#{actionsController.selected.bookId}" title="#{bundle.EditActionsTitle_bookId}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_bookId}"/>
+                        <p:outputLabel value="#{bundle.EditActionsLabel_userId}" for="userId" />
+                        <p:inputText id="userId" value="#{actionsController.selected.userId}" title="#{bundle.EditActionsTitle_userId}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_userId}"/>
+                        <p:outputLabel value="#{bundle.EditActionsLabel_actionType}" for="actionType" />
+                        <p:inputText id="actionType" value="#{actionsController.selected.actionType}" title="#{bundle.EditActionsTitle_actionType}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_actionType}"/>
+                        <p:outputLabel value="#{bundle.EditActionsLabel_createdAct}" for="createdAct" />
+                        <p:calendar id="createdAct" pattern="MM/dd/yyyy HH:mm:ss" value="#{actionsController.selected.createdAct}" title="#{bundle.EditActionsTitle_createdAct}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_createdAct}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actionsController.update}" value="#{bundle.Save}" update="display,:ActionsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActionsEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ActionsEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

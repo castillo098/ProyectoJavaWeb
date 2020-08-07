@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActionsCreateDlg" widgetVar="ActionsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateActionsTitle}">
+            <h:form id="ActionsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actionsController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateActionsLabel_actionId}" for="actionId" />
+                        <p:inputText id="actionId" value="#{actionsController.selected.actionId}" title="#{bundle.CreateActionsTitle_actionId}" required="true" requiredMessage="#{bundle.CreateActionsRequiredMessage_actionId}"/>
+                        <p:outputLabel value="#{bundle.CreateActionsLabel_bookId}" for="bookId" />
+                        <p:inputText id="bookId" value="#{actionsController.selected.bookId}" title="#{bundle.CreateActionsTitle_bookId}" required="true" requiredMessage="#{bundle.CreateActionsRequiredMessage_bookId}"/>
+                        <p:outputLabel value="#{bundle.CreateActionsLabel_userId}" for="userId" />
+                        <p:inputText id="userId" value="#{actionsController.selected.userId}" title="#{bundle.CreateActionsTitle_userId}" required="true" requiredMessage="#{bundle.CreateActionsRequiredMessage_userId}"/>
+                        <p:outputLabel value="#{bundle.CreateActionsLabel_actionType}" for="actionType" />
+                        <p:inputText id="actionType" value="#{actionsController.selected.actionType}" title="#{bundle.CreateActionsTitle_actionType}" required="true" requiredMessage="#{bundle.CreateActionsRequiredMessage_actionType}"/>
+                        <p:outputLabel value="#{bundle.CreateActionsLabel_createdAct}" for="createdAct" />
+                        <p:calendar id="createdAct" pattern="MM/dd/yyyy HH:mm:ss" value="#{actionsController.selected.createdAct}" title="#{bundle.EditActionsTitle_createdAct}" required="true" requiredMessage="#{bundle.EditActionsRequiredMessage_createdAct}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actionsController.create}" value="#{bundle.Save}" update="display,:ActionsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActionsCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ActionsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

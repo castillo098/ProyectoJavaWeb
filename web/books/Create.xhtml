@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BooksCreateDlg" widgetVar="BooksCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBooksTitle}">
+            <h:form id="BooksCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{booksController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_bookId}" for="bookId" />
+                        <p:inputText id="bookId" value="#{booksController.selected.bookId}" title="#{bundle.CreateBooksTitle_bookId}" required="true" requiredMessage="#{bundle.CreateBooksRequiredMessage_bookId}"/>
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_tittle}" for="tittle" />
+                        <p:inputText id="tittle" value="#{booksController.selected.tittle}" title="#{bundle.CreateBooksTitle_tittle}" required="true" requiredMessage="#{bundle.CreateBooksRequiredMessage_tittle}"/>
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{booksController.selected.description}" title="#{bundle.CreateBooksTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_author}" for="author" />
+                        <p:inputText id="author" value="#{booksController.selected.author}" title="#{bundle.CreateBooksTitle_author}" required="true" requiredMessage="#{bundle.CreateBooksRequiredMessage_author}"/>
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_publisherId}" for="publisherId" />
+                        <p:inputText id="publisherId" value="#{booksController.selected.publisherId}" title="#{bundle.CreateBooksTitle_publisherId}" required="true" requiredMessage="#{bundle.CreateBooksRequiredMessage_publisherId}"/>
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_price}" for="price" />
+                        <p:inputText id="price" value="#{booksController.selected.price}" title="#{bundle.CreateBooksTitle_price}" />
+                        <p:outputLabel value="#{bundle.CreateBooksLabel_copies}" for="copies" />
+                        <p:inputText id="copies" value="#{booksController.selected.copies}" title="#{bundle.CreateBooksTitle_copies}" required="true" requiredMessage="#{bundle.CreateBooksRequiredMessage_copies}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{booksController.create}" value="#{bundle.Save}" update="display,:BooksListForm:datalist,:growl" oncomplete="handleSubmit(args,'BooksCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BooksCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

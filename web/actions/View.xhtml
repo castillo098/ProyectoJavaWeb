@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActionsViewDlg" widgetVar="ActionsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewActionsTitle}">
+            <h:form id="ActionsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actionsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewActionsLabel_actionId}"/>
+                        <h:outputText value="#{actionsController.selected.actionId}" title="#{bundle.ViewActionsTitle_actionId}"/>
+                        <h:outputText value="#{bundle.ViewActionsLabel_bookId}"/>
+                        <h:outputText value="#{actionsController.selected.bookId}" title="#{bundle.ViewActionsTitle_bookId}"/>
+                        <h:outputText value="#{bundle.ViewActionsLabel_userId}"/>
+                        <h:outputText value="#{actionsController.selected.userId}" title="#{bundle.ViewActionsTitle_userId}"/>
+                        <h:outputText value="#{bundle.ViewActionsLabel_actionType}"/>
+                        <h:outputText value="#{actionsController.selected.actionType}" title="#{bundle.ViewActionsTitle_actionType}"/>
+                        <h:outputText value="#{bundle.ViewActionsLabel_createdAct}"/>
+                        <h:outputText value="#{actionsController.selected.createdAct}" title="#{bundle.ViewActionsTitle_createdAct}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ActionsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
