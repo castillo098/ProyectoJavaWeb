@@ -5,10 +5,13 @@
  */
 package servicios;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -86,12 +89,19 @@ public class BooksFacadeREST extends AbstractFacade<Books> {
     }
 
     @GET
-    @Path("Suma Numeros")
+    @Path("SumaNumeros")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String Resultado(@QueryParam("num1") int num1, @QueryParam("num2") int num2) {
         int result = num1 + num2;
         return "El resultado es:" + result;
+    }
 
+    @POST
+    @Path("SumaNumeros")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String Resultado1(@QueryParam("num1") int n1, @QueryParam("num2") int n2) {
+        int result = n1 + n2;
+        return "El resultado es:" + result;
     }
 
     @POST
@@ -99,7 +109,15 @@ public class BooksFacadeREST extends AbstractFacade<Books> {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String result(@FormParam("num1") int num1, @FormParam("num2") int num2) {
         int result = num1 * num2;
-        return "El resultadoi es:" + result;
+        return "El resultado es:" + result;
+    }
+
+    @POST
+    @Path("Division")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String result1(@FormParam("num1") int num1, @FormParam("num2") int num2) {
+        int resultado1 = num1 / num2;
+        return "El resultado es:" + resultado1;
     }
 
     @GET
@@ -112,6 +130,76 @@ public class BooksFacadeREST extends AbstractFacade<Books> {
             return num2 + "El mayor numero es num2:";
         }
 
+    }
+
+    @POST
+    @Path("numeroMayor")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String mayor1(@FormParam("a") int a1, @FormParam("b") int b1) {
+        if (a1 > b1) {
+            return a1 + "El numero mayor es a1: ";
+        } else {
+            return b1 + "El numero mayor es b1: ";
+        }
+    }
+
+    //OBTENER DE LA BASE DE DATOS
+    @POST
+    @Path("create")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String Crear(@FormParam("book_id") int book_id, @FormParam("tittle") String tittle,
+            @FormParam("description") String descripcion, @FormParam("author") String author, @FormParam("publisher_id") int publisher_id,
+            @FormParam("price") String price, @FormParam("copies") int copies) {
+
+        Books b = new Books(book_id, tittle, descripcion, author, publisher_id, price, copies);
+        /*if (book_id.() == 2) {
+            super.create(b);
+            return "El objeto se inserto con éxito";
+        } else {
+            return "El objeto no se inserto con éxito";
+        }*/
+        return "El objeto se inserto con éxito";
+    }
+
+    @POST
+    @Path("readLibros")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public List<Books> LeerLibros(@FormParam("author") String author) {
+        TypedQuery consulte = getEntityManager().createQuery("SELECT b FROM Books b WHERE b.author = :author", Books.class);
+        consulte.setParameter("author", author);
+        return consulte.getResultList();
+
+    }
+
+    @POST
+    @Path("editar")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String Editar(@FormParam("book_id") int book_id, @FormParam("tittle") String tittle,
+            @FormParam("description") String description, @FormParam("author") String author, @FormParam("publisher_id") int publisher_id,
+            @FormParam("price") String price, @FormParam("copies") int copies) {
+
+        Books b = super.find(book_id);
+        b.setAuthor(author);
+        b.setDescription(description);
+        b.setCopies(copies);
+        b.setPrice(price);
+        b.setPublisherId(publisher_id);
+        b.setTittle(tittle);
+        super.edit(b);
+        return "datos editados";
+    }
+
+    @POST
+    @Path("delete")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String Eliminar(@FormParam("book_id") int book_id) {
+        Books b = super.find(book_id);
+        if (b == null) {
+            return ("Datos no eliminados");
+        } else {
+            super.remove(b);
+            return ("Datos eliminados");
+        }
     }
 
     @GET

@@ -64,11 +64,21 @@ public class Books implements Serializable {
     private int publisherId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
-    private BigDecimal price;
+    private String price;
     @Basic(optional = false)
     @NotNull
     @Column(name = "copies")
     private int copies;
+
+    public Books(Integer bookId, String tittle, String description, String author, int publisherId, String price, int copies) {
+        this.bookId = bookId;
+        this.tittle = tittle;
+        this.description = description;
+        this.author = author;
+        this.publisherId = publisherId;
+        this.price = price;
+        this.copies = copies;
+    }
 
     public Books() {
     }
@@ -125,11 +135,11 @@ public class Books implements Serializable {
         this.publisherId = publisherId;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -165,5 +175,5 @@ public class Books implements Serializable {
     public String toString() {
         return "modelo.Books[ bookId=" + bookId + " ]";
     }
-    
+
 }
